@@ -69,7 +69,14 @@ app.get('/json', function (req, res) {
 })
 
 
+// 8. Chain MW to create a Time Server
 
+app.get('/now', (req, res, next) => {
+    req.time = new Date().toString()
+    next()
+}, (req, res) => {
+    res.json({time: req.time})
+})
 
 
 
