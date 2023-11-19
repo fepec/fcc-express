@@ -1,9 +1,10 @@
-let express = require('express');
+let express = require("express");
 let app = express();
+require("dotenv").config();
 
-console.log("Hello World")
+console.log("Hello World");
 
-// There should be a app.listen(port) command here. 
+// There should be a app.listen(port) command here.
 // However, because its fcc, that is in server.js
 
 // 2: Start an express server and serve a string
@@ -13,23 +14,23 @@ console.log("Hello World")
 // })
 
 // 3. Serve an html file.
-let absolutePath = __dirname + '/views/index.html'
+let absolutePath = __dirname + "/views/index.html";
 
-app.get('/', function (req, res) {
-    res.sendFile(absolutePath)
-})
+app.get("/", function (req, res) {
+  res.sendFile(absolutePath);
+});
 
 // 4. Serve static assets
-// 
+//
 // To serve static assets, we can use express.static(path).
 // This is middleware, which is a function that intercepts route handlers,
 // adding some kind of information. Middleware is mounted using
 // app.use(path, middlewareFunction). The first path argument
 // is optional. If we don't pass it, the middleware function
 // will be executed for all requests.
-// 
+//
 
-app.use('/public', express.static(__dirname + '/public'))
+app.use("/public", express.static(__dirname + "/public"));
 
 // 5. Serve JSON on a specific route
 
@@ -41,47 +42,21 @@ app.use('/public', express.static(__dirname + '/public'))
 
 // 6. Use the .env file.
 // The .env file keeps environment variables. Useful for storing
-// API keys, database URIs, or config options. 
-// Environment variables are accessible as 
+// API keys, database URIs, or config options.
+// Environment variables are accessible as
 // process.env.VAR_NAME (caps by convention).
 
-app.get('/json', function (req, res) {
-    const message = "Hello json"
-    if (process.env.MESSAGE_STYLE === 'uppercase') {
-        res.json({
-            "message": message
-        })
-    } else {
-        res.json( {
-            "message": message.toUpperCase()
-        })
-    }
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get("/json", function (req, res) {
+  const message = "Hello json";
+  if (process.env.MESSAGE_STYLE === "uppercase") {
+    res.json({
+      message: message,
+    });
+  } else {
+    res.json({
+      message: message.toUpperCase(),
+    });
+  }
+});
 
 module.exports = app;
