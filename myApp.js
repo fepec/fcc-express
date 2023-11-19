@@ -7,6 +7,15 @@ console.log("Hello World")
 // There should be a app.listen(port) command here. 
 // However, because its fcc, that is in server.js
 
+
+// 7. Implement Root-level request logger middleware
+// Placed here because this middleware has to work 
+// for all routes, so it has to be mounted before them.
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path} - ${req.ip}`)
+    next()
+} )
+
 // 2: Start an express server and serve a string
 
 // app.get('/', function(req,res) {
