@@ -20,8 +20,16 @@ app.get('/', function(req, res) {
     res.sendFile(absolutePath)
 })
 
-
-
+// 4. Serve static assets
+```
+To serve static assets, we can use express.static(path).
+This is middleware, which is a function that intercepts route handlers,
+adding some kind of information. Middleware is mounted using
+app.use(path, middlewareFunction). The first path argument
+is optional. If we don't pass it, the middleware function
+will be executed for all requests.
+```
+app.use(express.static(__dirname + '/public'))
 
 
 
