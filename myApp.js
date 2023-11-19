@@ -1,7 +1,6 @@
 let express = require('express');
 let app = express();
 
-
 console.log("Hello World")
 
 // There should be a app.listen(port) command here. 
@@ -16,7 +15,7 @@ console.log("Hello World")
 // 3. Serve an html file.
 let absolutePath = __dirname + '/views/index.html'
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.sendFile(absolutePath)
 })
 
@@ -34,10 +33,29 @@ app.use('/public', express.static(__dirname + '/public'))
 
 // 5. Serve JSON on a specific route
 
-app.get('/json', function(req, res) {
-    res.json({
-        "message": "Hello json"
-    })
+// app.get('/json', function(req, res) {
+//     res.json({
+//         "message": "Hello json"
+//     })
+// })
+
+// 6. Use the .env file.
+// The .env file keeps environment variables. Useful for storing
+// API keys, database URIs, or config options. 
+// Environment variables are accessible as 
+// process.env.VAR_NAME (caps by convention).
+
+app.get('/json', function (req, res) {
+    const message = "Hello json"
+    if (process.env.MESSAGE_STYLE === 'uppercase') {
+        res.json({
+            "message": message
+        })
+    } else {
+        res.json( {
+            "message": message.toUpperCase()
+        })
+    }
 })
 
 
@@ -66,4 +84,4 @@ app.get('/json', function(req, res) {
 
 
 
- module.exports = app;
+module.exports = app;
