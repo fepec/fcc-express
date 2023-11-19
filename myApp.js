@@ -79,7 +79,7 @@ app.get('/now', (req, res, next) => {
 })
 
 
-// 9. Get parameter input from client
+// 9. Get route parameter input from client
 // route parameters
 
 app.get('/:word/echo', (req, res) => {
@@ -88,15 +88,13 @@ app.get('/:word/echo', (req, res) => {
     })
 })
 
+// 10. Get query parameter input from client
 
-
-
-
-
-
-
-
-
+app.get('/name', (req, res) => {
+    res.json({
+        name: `${req.query.first} ${req.query.last}`
+    })
+})
 
 
 
