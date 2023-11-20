@@ -1,6 +1,7 @@
 let express = require('express');
 let app = express();
 require('dotenv').config()
+let bodyParser = require('body-parser')
 
 console.log("Hello World")
 
@@ -15,6 +16,23 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.path} - ${req.ip}`)
     next()
 } )
+
+// 11. Use body-parser to parse POST requests
+// In POST requests, data does not appear in the URL. 
+// Instead it is hidden in the request body (payload).
+// The body can be coded like the query string, as JSON,
+// or as multipart/form-data (among others?).
+// To parse data, we need the body-parser package.
+
+// Placed here because this middleware has to work 
+// for all routes, so it has to be mounted before them.
+
+
+const urlEncodedHandler = bodyParser.urlencoded({extended: false})
+
+app.use(urlEncodedHandler)
+
+
 
 // 2: Start an express server and serve a string
 
@@ -80,7 +98,7 @@ app.get('/now', (req, res, next) => {
 
 
 // 9. Get route parameter input from client
-// route parameters
+// route parameters can be read using req.params
 
 app.get('/:word/echo', (req, res) => {
     res.json({
@@ -88,16 +106,16 @@ app.get('/:word/echo', (req, res) => {
     })
 })
 
-// 10. Get query parameter input from client
+// 10. Get query parameter input from client.
+// Query strings have this structure:
+// key1=data1&key2=data2
+// query parameters can be read using req.query
 
 app.get('/name', (req, res) => {
     res.json({
         name: `${req.query.first} ${req.query.last}`
     })
 })
-
-
-
 
 
 
